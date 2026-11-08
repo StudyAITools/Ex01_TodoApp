@@ -1,0 +1,645 @@
+/* ─── 디자인 토큰 ───────────────────────────────────────── */
+
+:root {
+  color-scheme: light;
+  --bg: #f3f4f7;
+  --surface: #ffffff;
+  --surface-muted: #f1f3f6;
+  --text: #1b1e24;
+  --text-muted: #646b78;
+  --border: #e4e6eb;
+  --border-strong: #c7ccd5;
+  --accent: #3462e4;
+  --accent-hover: #2850c4;
+  --accent-soft: rgb(52 98 228 / 0.16);
+  --on-accent: #ffffff;
+  --danger: #c9372c;
+  --danger-soft: rgb(201 55 44 / 0.1);
+  --toast-bg: #1f232b;
+  --toast-text: #f3f4f7;
+  --toast-accent: #8fb0ff;
+  --check-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+  --shadow: 0 1px 2px rgb(15 23 42 / 0.05), 0 12px 32px -8px rgb(15 23 42 / 0.12);
+  --radius: 16px;
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0e1014;
+    --surface: #171a20;
+    --surface-muted: #1f232b;
+    --text: #e8eaef;
+    --text-muted: #9aa2af;
+    --border: #2a2f38;
+    --border-strong: #434a57;
+    --accent: #7397ff;
+    --accent-hover: #8eabff;
+    --accent-soft: rgb(115 151 255 / 0.2);
+    --on-accent: #0e1014;
+    --danger: #ff7a70;
+    --danger-soft: rgb(255 122 112 / 0.14);
+    --toast-bg: #e8eaef;
+    --toast-text: #171a20;
+    --toast-accent: #2850c4;
+    --check-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230e1014' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -8px rgb(0 0 0 / 0.5);
+  }
+}
+
+/* ─── 기본 ──────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* display를 지정한 요소에도 hidden 속성이 확실히 적용되도록 */
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(16px, 7vh, 72px) 16px 112px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── 카드 & 헤더 ───────────────────────────────────────── */
+
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 28px 24px 20px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.today {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.summary {
+  flex: 0 1 200px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.progress {
+  height: 6px;
+  margin-top: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 300ms ease;
+}
+
+/* ─── 입력 ──────────────────────────────────────────────── */
+
+.new-todo {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px 20px;
+}
+
+.new-todo-input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+.new-todo-input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.new-todo-input:focus-visible {
+  /* 고대비 모드에서는 투명 outline이 실제 테두리로 보인다 */
+  outline: 2px solid transparent;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 150ms, color 150ms;
+}
+
+.btn-primary {
+  height: 48px;
+  padding: 0 20px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-ghost {
+  height: 34px;
+  padding: 0 12px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.btn-ghost:hover {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.btn-link {
+  height: 32px;
+  margin-right: -8px;
+  padding: 0 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.btn-link:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.notice {
+  margin: 0 24px 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 0.875rem;
+}
+
+/* ─── 필터 툴바 ─────────────────────────────────────────── */
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* 아주 좁은 화면에서 줄이 넘어가도 오른쪽에 붙어 있도록 */
+.toolbar > .btn {
+  margin-left: auto;
+}
+
+.filters {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--surface-muted);
+}
+
+.filters a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 12px;
+  border-radius: 7px;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 150ms, color 150ms;
+}
+
+.filters a:hover {
+  color: var(--text);
+}
+
+.filters a[aria-current="page"] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 0 0 1px var(--border);
+}
+
+.filter-count {
+  min-width: 1.6em;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.filters a[aria-current="page"] .filter-count {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ─── 목록 ──────────────────────────────────────────────── */
+
+.todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.todo-item {
+  animation: item-in 180ms ease-out;
+}
+
+.todo-item + .todo-item {
+  border-top: 1px solid var(--border);
+}
+
+.todo-view {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 56px;
+  padding: 4px 12px 4px 10px;
+}
+
+.todo-check {
+  display: grid;
+  flex: none;
+  place-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.todo-toggle {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 2px solid var(--border-strong);
+  border-radius: 50%;
+  background: var(--surface) center / 14px 14px no-repeat;
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms;
+}
+
+.todo-check:hover .todo-toggle {
+  border-color: var(--accent);
+}
+
+.todo-toggle:checked {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  background-image: var(--check-icon);
+}
+
+.todo-title {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 8px 8px 11px;
+  overflow-wrap: anywhere;
+  transition: color 150ms;
+}
+
+.todo-item.is-completed .todo-title {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.todo-actions {
+  display: flex;
+  flex: none;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 150ms;
+}
+
+.todo-item:hover .todo-actions,
+.todo-item:focus-within .todo-actions {
+  opacity: 1;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  transition: background-color 150ms, color 150ms;
+}
+
+.icon-btn:hover {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.todo-delete:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 편집 중: 체크박스는 그대로 두고 제목 자리를 입력란으로 바꾼다 */
+.todo-item.is-editing .todo-title,
+.todo-item.is-editing .todo-actions {
+  display: none;
+}
+
+.todo-edit-form {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-edit-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  outline: 2px solid transparent;
+  background: var(--surface);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.empty-state {
+  margin: 0;
+  padding: 48px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+  padding: 8px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.app-hint {
+  max-width: 600px;
+  margin: 16px auto 0;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+kbd {
+  padding: 1px 5px;
+  border: 1px solid var(--border-strong);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.75rem;
+}
+
+.noscript {
+  max-width: 600px;
+  margin: 16px auto;
+  text-align: center;
+}
+
+/* ─── 실행 취소 토스트 ──────────────────────────────────── */
+
+.toast {
+  position: fixed;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  left: 50%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  padding: 8px 8px 8px 16px;
+  border-radius: 12px;
+  background: var(--toast-bg);
+  color: var(--toast-text);
+  box-shadow: 0 12px 32px -6px rgb(0 0 0 / 0.35);
+  font-size: 0.9rem;
+  transform: translateX(-50%);
+  animation: toast-in 200ms ease-out;
+}
+
+.toast-message {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toast-undo {
+  flex: none;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--toast-accent);
+  font-weight: 700;
+}
+
+.toast-undo:hover {
+  background: rgb(127 127 127 / 0.2);
+}
+
+.toast-undo:focus-visible {
+  outline-color: var(--toast-accent);
+}
+
+/* ─── 애니메이션 ────────────────────────────────────────── */
+
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── 터치 기기 & 좁은 화면 ─────────────────────────────── */
+
+@media (hover: none) {
+  /* 마우스를 올릴 수 없으므로 수정·삭제 버튼을 항상 보여 준다 */
+  .todo-actions {
+    opacity: 1;
+  }
+
+  .app-hint {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 16px;
+  }
+
+  .app-header {
+    padding: 22px 16px 16px;
+  }
+
+  .summary {
+    flex-basis: 100%;
+    text-align: left;
+  }
+
+  .new-todo {
+    padding: 0 16px 16px;
+  }
+
+  .btn-primary {
+    padding: 0 16px;
+  }
+
+  .notice {
+    margin-inline: 16px;
+  }
+
+  .toolbar,
+  .footer {
+    padding-inline: 16px;
+  }
+
+  /* 360px 폭에서 필터와 '모두 완료' 버튼이 한 줄에 들어가도록 여백을 줄인다 */
+  .toolbar {
+    gap: 6px;
+    padding-inline: 12px;
+  }
+
+  .filters {
+    gap: 0;
+    padding: 2px;
+  }
+
+  .filters a {
+    gap: 4px;
+    padding: 5px 7px;
+  }
+
+  .btn-ghost {
+    padding: 0 8px;
+  }
+
+  .todo-view {
+    padding-inline: 4px 6px;
+  }
+}

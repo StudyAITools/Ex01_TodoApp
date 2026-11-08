@@ -3,6 +3,11 @@
 빌드 도구도 외부 라이브러리도 없는 바닐라 JavaScript TODO 앱입니다.
 목록은 브라우저의 `localStorage`에 자동 저장됩니다.
 
+**바로 사용해 보기 → https://studyaitools.github.io/Ex01_TodoApp/**
+
+`main` 브랜치에 푸시하면 GitHub Actions가 테스트를 실행한 뒤 `public/` 폴더를 GitHub Pages에 자동 배포합니다
+(`.github/workflows/pages.yml`).
+
 ## 실행
 
 ```bash
